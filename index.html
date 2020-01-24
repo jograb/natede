@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Natede by Vitesy API (unofficial)</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/darkula.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>body {
+    position: relative;
+}
+
+h1 {
+    margin-top: 5px;
+}
+
+h1, h2, h3, h4 {
+    color: #2b2b2b;
+}
+
+h2:after {
+    content: ' ';
+}
+
+h5 {
+    font-weight: bold;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    display: none;
+    position: absolute;
+    margin-left: 8px;
+}
+
+h1:hover a, h2:hover a, h3:hover a, h4:hover a, h5:hover a, h6:hover a {
+    color: #a5a5a5;
+    display: initial;
+}
+
+.nav.nav-tabs > li > a {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.tab-content {
+    padding-top: 8px;
+}
+
+.table {
+    margin-bottom: 8px;
+}
+
+pre {
+    border-radius: 0px;
+    border: none;
+}
+
+pre code {
+    margin: -9.5px;
+}
+
+.request {
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.response-text-sample {
+    padding: 0px !important;
+}
+
+.response-text-sample pre {
+    margin-bottom: 0px;
+}
+
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 250px;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #2b2b2b;
+    padding-top: 20px;
+}
+
+#sidebar-wrapper ul {
+    width: 250px;
+}
+
+#sidebar-wrapper ul li {
+    margin-right: 10px;
+}
+
+#sidebar-wrapper ul li a:hover {
+    background: inherit;
+    text-decoration: none;
+}
+
+#sidebar-wrapper ul li a {
+    display: block;
+    color: #ECF0F1;
+    padding: 6px 15px;
+}
+
+#sidebar-wrapper ul li ul {
+    padding-left: 25px;
+}
+
+#sidebar-wrapper ul li ul li a {
+    padding: 1px 0px;
+}
+
+#sidebar-wrapper ul li a:hover,
+#sidebar-wrapper ul li a:focus {
+    color: #e0c46c;
+    border-right: solid 1px #e0c46c;
+}
+
+#sidebar-wrapper ul li.active > a {
+    color: #e0c46c;
+    border-right: solid 3px #e0c46c;
+}
+
+#sidebar-wrapper ul li:not(.active) ul {
+    display: none;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px 15px 15px 250px;
+}
+</style>
+</head>
+<body data-spy="scroll" data-target=".scrollspy">
+<div id="sidebar-wrapper">
+    <div class="scrollspy">
+    <ul id="main-menu" data-spy="affix" class="nav">
+        <li>
+            <a href="#doc-general-notes">General notes</a>
+        </li>
+        
+        <li>
+            <a href="#doc-api-detail">API detail</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-user-certs">Get User Certs</a>
+        </li>
+        
+        <li>
+            <a href="#request-api-healthcheck">API Healthcheck</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-user-info">Get User Info</a>
+        </li>
+        
+        <li>
+            <a href="#request-edit-user-info">EDIT User Info</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-users-devices">Get Users Devices</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-device-info">Get Device Info</a>
+        </li>
+        
+        <li>
+            <a href="#request-edit-device-info">EDIT Device Info</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-natede-programs">Get Natede Programs</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-natede-goals">Get Natede Goals</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-natede-places">Get Natede Places</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-natede-plants">Get Natede Plants</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-latest-measurements">Get Latest Measurements</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-measurements-by-date">Get Measurements by Date</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-alerts">Get Alerts</a>
+        </li>
+        
+        <li>
+            <a href="#request-get-alerts-by-date">Get Alerts by Date</a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+</div>
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Natede by Vitesy API (unofficial)</h1>
+
+                <h2 id="doc-general-notes">
+                    General notes
+                    <a href="#doc-general-notes"><i class="glyphicon glyphicon-link"></i></a>
+                </h2>
+
+                <p><a href="https://vitesy.com/natede">Natede</a> is a &ldquo;smart natural air purifier&rdquo;, the successor from <a href="https://clairy.com/">Clairy</a>.
+It also has various sensors for measuring the air quality, e. g. temperature and humidity, VOCs, CO and dust. But unfortunately there is no official way to export this data besides the app, so let&rsquo;s expore the API a bit.</p>
+
+<p>More Information: <a href="https://johann.gr/?p=823">https://johann.gr/?p=823</a> (🇩🇪)</p>
+
+
+                
+
+                <h2 id="doc-api-detail">
+                    API detail
+                    <a href="#doc-api-detail"><i class="glyphicon glyphicon-link"></i></a>
+                </h2>
+
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-user-certs">
+                        Get User Certs
+                        <a href="#request-get-user-certs"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-user-certs-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-user-certs-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-user-certs-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/users/{{user_id}}/certificates"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-user-certs-example-http">
+                                <pre><code class="hljs http">GET /users/%7B%7Buser_id%7D%7D/certificates HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-api-healthcheck">
+                        API Healthcheck
+                        <a href="#request-api-healthcheck"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-api-healthcheck-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-api-healthcheck-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-api-healthcheck-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/healthcheck"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-api-healthcheck-example-http">
+                                <pre><code class="hljs http">GET /healthcheck HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-user-info">
+                        Get User Info
+                        <a href="#request-get-user-info"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-user-info-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-user-info-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-user-info-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/users/me"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-user-info-example-http">
+                                <pre><code class="hljs http">GET /users/me HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-edit-user-info">
+                        EDIT User Info
+                        <a href="#request-edit-user-info"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-edit-user-info-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-edit-user-info-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-edit-user-info-example-curl">
+                                <pre><code class="hljs curl">curl -X PATCH -H "Content-Type: text/plain" -d '{"email":"mail@address.tld","firstName":"John","lastName":"Doe","language":"de","entityId":""}' "https://api.clairyhub.com/users/me"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-edit-user-info-example-http">
+                                <pre><code class="hljs http">PATCH /users/me HTTP/1.1
+Host: api.clairyhub.com
+Content-Type: text/plain
+
+{"email":"mail@address.tld","firstName":"John","lastName":"Doe","language":"de","entityId":""}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-users-devices">
+                        Get Users Devices
+                        <a href="#request-get-users-devices"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-users-devices-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-users-devices-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-users-devices-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/users/me/devices"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-users-devices-example-http">
+                                <pre><code class="hljs http">GET /users/me/devices HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-device-info">
+                        Get Device Info
+                        <a href="#request-get-device-info"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Get Bearer Token</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-device-info-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-device-info-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-device-info-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/devices/{{deviceId}}/options"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-device-info-example-http">
+                                <pre><code class="hljs http">GET /devices/%7B%7BdeviceId%7D%7D/options HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-edit-device-info">
+                        EDIT Device Info
+                        <a href="#request-edit-device-info"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Get Bearer Token</p>
+</div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-edit-device-info-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-edit-device-info-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-edit-device-info-example-curl">
+                                <pre><code class="hljs curl">curl -X PATCH -d '{
+    "deviceName": "NATEDE Wohnzimmer",
+    "entityId": "E8:2A:44:00:00:00",
+    "goal": {
+        "id": "general"
+    }
+}' "https://api.clairyhub.com/devices/{{deviceId}}/"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-edit-device-info-example-http">
+                                <pre><code class="hljs http">PATCH /devices/%7B%7BdeviceId%7D%7D/ HTTP/1.1
+Host: api.clairyhub.com
+
+{
+    "deviceName": "NATEDE Wohnzimmer",
+    "entityId": "E8:2A:44:00:00:00",
+    "goal": {
+        "id": "general"
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-natede-programs">
+                        Get Natede Programs
+                        <a href="#request-get-natede-programs"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-natede-programs-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-natede-programs-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-natede-programs-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/programs"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-natede-programs-example-http">
+                                <pre><code class="hljs http">GET /programs HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-natede-goals">
+                        Get Natede Goals
+                        <a href="#request-get-natede-goals"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-natede-goals-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-natede-goals-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-natede-goals-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/goals"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-natede-goals-example-http">
+                                <pre><code class="hljs http">GET /goals HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-natede-places">
+                        Get Natede Places
+                        <a href="#request-get-natede-places"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-natede-places-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-natede-places-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-natede-places-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/places"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-natede-places-example-http">
+                                <pre><code class="hljs http">GET /places HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-natede-plants">
+                        Get Natede Plants
+                        <a href="#request-get-natede-plants"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-natede-plants-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-natede-plants-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-natede-plants-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/plants/{{deviceId}}"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-natede-plants-example-http">
+                                <pre><code class="hljs http">GET /plants/%7B%7BdeviceId%7D%7D HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-latest-measurements">
+                        Get Latest Measurements
+                        <a href="#request-get-latest-measurements"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-latest-measurements-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-latest-measurements-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-latest-measurements-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/devices/{{deviceId}}/measurements/latest"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-latest-measurements-example-http">
+                                <pre><code class="hljs http">GET /devices/%7B%7BdeviceId%7D%7D/measurements/latest HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-measurements-by-date">
+                        Get Measurements by Date
+                        <a href="#request-get-measurements-by-date"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-measurements-by-date-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-measurements-by-date-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-measurements-by-date-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/measurements?deviceId={{deviceId}}&fromDateTime={{fromDateTime}}&toDateTime={{toDateTime}}&granularity=finest&sensors={{sensors}}"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-measurements-by-date-example-http">
+                                <pre><code class="hljs http">GET /measurements?deviceId={{deviceId}}&fromDateTime={{fromDateTime}}&toDateTime={{toDateTime}}&granularity=finest&sensors={{sensors}} HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-alerts">
+                        Get Alerts
+                        <a href="#request-get-alerts"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-alerts-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-alerts-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-alerts-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/devices/{{deviceId}}/alerts"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-alerts-example-http">
+                                <pre><code class="hljs http">GET /devices/%7B%7BdeviceId%7D%7D/alerts HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+                
+                <div class="request">
+
+                    <h3 id="request-get-alerts-by-date">
+                        Get Alerts by Date
+                        <a href="#request-get-alerts-by-date"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div></div>
+
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#request-get-alerts-by-date-example-curl" data-toggle="tab">Curl</a></li>
+                            <li role="presentation"><a href="#request-get-alerts-by-date-example-http" data-toggle="tab">HTTP</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="request-get-alerts-by-date-example-curl">
+                                <pre><code class="hljs curl">curl -X GET "https://api.clairyhub.com/devices/{{deviceId}}/alerts?fromDate={{fromDate}}&toDate={{fromDate}}"</code></pre>
+                            </div>
+                            <div class="tab-pane" id="request-get-alerts-by-date-example-http">
+                                <pre><code class="hljs http">GET /devices/%7B%7BdeviceId%7D%7D/alerts?fromDate={{fromDate}}&toDate={{fromDate}} HTTP/1.1
+Host: api.clairyhub.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <hr>
+                </div>
+                
+
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>
